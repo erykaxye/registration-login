@@ -1,0 +1,14 @@
+<div class="p-4"> 
+    <div class="container"> 
+        <h1>Hi {{currentUser.firstName}} {{currentUser.lastName}}!</h1>
+        <p>You're logged in with Angular 10!!</p>
+        <h3>All registered users:</h3>
+        <ul>
+            <li *ngFor="let user of users">
+                {{user.username}} ({{user.firstName}} {{user.lastName}})
+            </li> 
+            <!--- <a (click)="deleteUser(user.id)" class="text-danger">Delete</a> -->
+        </ul>
+        <p><a routerLink="/users">Manage Users</a></p>
+    </div>
+</div>

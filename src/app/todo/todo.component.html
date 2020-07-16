@@ -1,0 +1,49 @@
+<h1>To Do List</h1>
+
+<form [formGroup]="toDoForm" (ngSubmit)="onSubmit()">
+    <div class="form-row"> 
+        <div class="form-group col">
+            <input type="text" formControlName="content" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.content.errors }" />
+            <div *ngIf="submitted && f.content.errors" class="invalid-feedback"> 
+                <div *ngIf="f.content.errors.required">Content cannot be empty</div>
+            </div>
+        </div>
+        <div class="form-group col">
+            <button [disabled]="loading" class="btn btn-success mb-2">
+                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                Add 
+            </button>
+        </div>
+    </div>
+</form>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 90%"></th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let item of list">
+            <td>
+                <form [formGroup]="checkForm" class="form-inline">
+                    <input type="checkbox" value="{{item.content}}" [checked]="item.isChecked" class="form-control" (change)="check(item.id)" > <!--item.isChecked = !item.isChecked-->
+                    &nbsp;{{item.content}}
+                </form>
+            </td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{item.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>
+                <button (click)="deleteItem(item.id)" class="btn btn-sm btn-danger btn-delete-user" [disabled]="item.isDeleting">
+                    <span *ngIf="item.isDeleting" class="spinner-border spinner-border-sm"></span>
+                    <span *ngIf="!item.isDeleting">Delete</span>
+                </button>
+            </td>
+        </tr>
+        <tr *ngIf="!list">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>

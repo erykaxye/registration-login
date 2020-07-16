@@ -1,0 +1,23 @@
+<!-- nav -->
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a>
+        <a class="nav-item nav-link" routerLink="/todo/{{currentUser.id}}" routerLinkActive="active">To-do List</a>
+        <a class="nav-item nav-link" routerLink="/users" routerLinkActive="active">Users</a>
+        <a class="nav-item nav-link" (click)="logout()">Logout</a>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand navbar-dark bg-dark" *ngIf="!currentUser">
+    <div class="navbar-nav">
+        <a class="nav-item nav-link" routerLink="/welcome" routerLinkActive="active">Welcome</a>
+        <a class="nav-item nav-link" routerLink="/account/login" routerLinkActive="active">Login</a>
+        <a class="nav-item nav-link" routerLink="/account/register" routerLinkActive="active">Register</a>
+    </div>
+</nav>
+
+<!-- main app container -->
+<div class="app-container" [ngClass]="{ 'bg-light': currentUser }">
+    <alert></alert>
+    <router-outlet></router-outlet>
+</div>
